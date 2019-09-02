@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Implementation-Title: TeleRadiology
+Implementation-Version: 1.0
+Built-By: Saravanan
+Implementation-Vendor-Id: com.kinsolutions
+Build-Jdk: 1.8.0_181
+Implementation-URL: http://projects.spring.io/spring-boot/TeleRadiolog
+ y/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.kinsolutions.TeleRadiologyApp
+
