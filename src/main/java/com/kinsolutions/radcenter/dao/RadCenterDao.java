@@ -32,4 +32,28 @@ public class RadCenterDao {
 		return null;
 	}
 
+	public RadCenter getRadCenterByRadCenterId(long radCenterId) {
+		List<RadCenter> radCenterList = null;
+		try {
+			String hqlQuery = "FROM RadCenter WHERE radCenterId = ?";
+			radCenterList = entityManager.createQuery(hqlQuery, RadCenter.class).setParameter(1, radCenterId).getResultList();
+			
+			if(radCenterList != null && radCenterList.size() > 0) {
+				return radCenterList.get(0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public RadCenter saveOrUpdateRadCenter(RadCenter radCenter) {
+		try {
+			entityManager.persist(radCenter);
+		} catch (Exception e) {
+ 			e.printStackTrace();
+		}
+		return radCenter;
+	}
+
 }
