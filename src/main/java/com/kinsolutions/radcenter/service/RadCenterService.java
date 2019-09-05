@@ -6,7 +6,7 @@ public interface RadCenterService {
 	
 	public RadCenter getRadCenterByUserId(long userId);
 	
-	public RadCenter getRadCenterByRadCenterId(long radCenterId);
+	public RadCenter getRadCenterByRadCenterId(Integer radCenterId);
 	
 	public RadCenter saveOrUpdateRadCenter(RadCenter radCenter);
 

@@ -32,7 +32,7 @@ public class RadCenterDao {
 		return null;
 	}
 
-	public RadCenter getRadCenterByRadCenterId(long radCenterId) {
+	public RadCenter getRadCenterByRadCenterId(Integer radCenterId) {
 		List<RadCenter> radCenterList = null;
 		try {
 			String hqlQuery = "FROM RadCenter WHERE radCenterId = ?";

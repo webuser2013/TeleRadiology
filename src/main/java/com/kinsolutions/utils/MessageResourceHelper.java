@@ -25,6 +25,17 @@ public class MessageResourceHelper {
 	
 	@Value("${msg.radcen.deleted}")
 	public String msgRadCenDeleted;
+	
+	@Value("${msg.radcen.create}")
+	public String msgRadcenCreate;
+	
+	@Value("${msg.radcen.modify}")
+	public String msgRadcenModify;
+	
+	@Value("${msg.radcen.saveerr}")
+	public String msgRadcenSaveErr;
+	
+	 
 
 	public String getMsgDataNotFound() {
 		return msgDataNotFound;
@@ -73,6 +84,32 @@ public class MessageResourceHelper {
 	public void setMsgRadCenDeleted(String msgRadCenDeleted) {
 		this.msgRadCenDeleted = msgRadCenDeleted;
 	}
+
+	public String getMsgRadcenCreate() {
+		return msgRadcenCreate;
+	}
+
+	public void setMsgRadcenCreate(String msgRadcenCreate) {
+		this.msgRadcenCreate = msgRadcenCreate;
+	}
+
+	public String getMsgRadcenModify() {
+		return msgRadcenModify;
+	}
+
+	public void setMsgRadcenModify(String msgRadcenModify) {
+		this.msgRadcenModify = msgRadcenModify;
+	}
+
+	public String getMsgRadcenSaveErr() {
+		return msgRadcenSaveErr;
+	}
+
+	public void setMsgRadcenSaveErr(String msgRadcenSaveErr) {
+		this.msgRadcenSaveErr = msgRadcenSaveErr;
+	}
+
+	 
 
 	
 

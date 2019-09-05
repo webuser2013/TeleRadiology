@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class RadCenterInfo implements Serializable {
 	
-	private long radCenterId;
+	private Integer radCenterId;
 	private String radCenterName;
 	private String message;
 	
-	public long getRadCenterId() {
+	public Integer getRadCenterId() {
 		return radCenterId;
 	}
-	public void setRadCenterId(long radCenterId) {
+	public void setRadCenterId(Integer radCenterId) {
 		this.radCenterId = radCenterId;
 	}
 	public String getRadCenterName() {

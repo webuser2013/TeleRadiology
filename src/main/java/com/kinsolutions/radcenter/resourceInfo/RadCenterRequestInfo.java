@@ -6,29 +6,30 @@ import java.util.Date;
 
 public class RadCenterRequestInfo implements Serializable {
 	
-    private long radCenterId;  
+    private Integer radCenterId;  
 	private String radCenterName;
 	private long userId;
  	private Date radCenterDate;
 	private BigDecimal securityDeposit;
 	private BigDecimal deploymentFee;
-	private int siteCount;
-	private int radiologistCount;
-	private int modalityCount;
+	private Integer siteCount;
+	private Integer radiologistCount;
+	private Integer modalityCount;
 	private byte[] purchaseOrderCopy;
-	private char modeOfCharge;
-	private int ctcharge;
+	private String modeOfCharge;
+	private Integer ctcharge;
 	private BigDecimal mriCharge;
 	private BigDecimal xRayCrCharge;
 	private BigDecimal mammogramcharge;
-	private int serverRam;
-	private int serverCoreCount;
-	private int serverStorage;
+	private String serverRam;
+	private String serverCoreCount;
+	private String serverStorage;
 	private BigDecimal serverMonthlyCharges;
-	public long getRadCenterId() {
+	
+	public Integer getRadCenterId() {
 		return radCenterId;
 	}
-	public void setRadCenterId(long radCenterId) {
+	public void setRadCenterId(Integer radCenterId) {
 		this.radCenterId = radCenterId;
 	}
 	public String getRadCenterName() {
@@ -61,22 +62,22 @@ public class RadCenterRequestInfo implements Serializable {
 	public void setDeploymentFee(BigDecimal deploymentFee) {
 		this.deploymentFee = deploymentFee;
 	}
-	public int getSiteCount() {
+	public Integer getSiteCount() {
 		return siteCount;
 	}
-	public void setSiteCount(int siteCount) {
+	public void setSiteCount(Integer siteCount) {
 		this.siteCount = siteCount;
 	}
-	public int getRadiologistCount() {
+	public Integer getRadiologistCount() {
 		return radiologistCount;
 	}
-	public void setRadiologistCount(int radiologistCount) {
+	public void setRadiologistCount(Integer radiologistCount) {
 		this.radiologistCount = radiologistCount;
 	}
-	public int getModalityCount() {
+	public Integer getModalityCount() {
 		return modalityCount;
 	}
-	public void setModalityCount(int modalityCount) {
+	public void setModalityCount(Integer modalityCount) {
 		this.modalityCount = modalityCount;
 	}
 	public byte[] getPurchaseOrderCopy() {
@@ -85,16 +86,16 @@ public class RadCenterRequestInfo implements Serializable {
 	public void setPurchaseOrderCopy(byte[] purchaseOrderCopy) {
 		this.purchaseOrderCopy = purchaseOrderCopy;
 	}
-	public char getModeOfCharge() {
+	public String getModeOfCharge() {
 		return modeOfCharge;
 	}
-	public void setModeOfCharge(char modeOfCharge) {
+	public void setModeOfCharge(String modeOfCharge) {
 		this.modeOfCharge = modeOfCharge;
 	}
-	public int getCtcharge() {
+	public Integer getCtcharge() {
 		return ctcharge;
 	}
-	public void setCtcharge(int ctcharge) {
+	public void setCtcharge(Integer ctcharge) {
 		this.ctcharge = ctcharge;
 	}
 	public BigDecimal getMriCharge() {
@@ -115,22 +116,22 @@ public class RadCenterRequestInfo implements Serializable {
 	public void setMammogramcharge(BigDecimal mammogramcharge) {
 		this.mammogramcharge = mammogramcharge;
 	}
-	public int getServerRam() {
+	public String getServerRam() {
 		return serverRam;
 	}
-	public void setServerRam(int serverRam) {
+	public void setServerRam(String serverRam) {
 		this.serverRam = serverRam;
 	}
-	public int getServerCoreCount() {
+	public String getServerCoreCount() {
 		return serverCoreCount;
 	}
-	public void setServerCoreCount(int serverCoreCount) {
+	public void setServerCoreCount(String serverCoreCount) {
 		this.serverCoreCount = serverCoreCount;
 	}
-	public int getServerStorage() {
+	public String getServerStorage() {
 		return serverStorage;
 	}
-	public void setServerStorage(int serverStorage) {
+	public void setServerStorage(String serverStorage) {
 		this.serverStorage = serverStorage;
 	}
 	public BigDecimal getServerMonthlyCharges() {
