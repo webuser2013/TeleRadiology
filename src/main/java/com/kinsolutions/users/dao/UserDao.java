@@ -22,7 +22,7 @@ public class UserDao {
 		List<Users> usersList = null;
 		try {
 			 
-			String hqlQuery = "FROM Users WHERE userId = ? privilegeCd = ?";
+			String hqlQuery = "FROM Users WHERE userId = ? AND privilegeCd = ?";
 			usersList = entityManager.createQuery(hqlQuery, Users.class).setParameter(1, userId).setParameter(2, AppConstants.PRIVILEGECD_STATUS_ACTIVE).getResultList();
 			
 			if(usersList != null && usersList.size() > 0) {

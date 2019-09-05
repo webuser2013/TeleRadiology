@@ -1,5 +1,7 @@
 package com.kinsolutions.radcenter.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +49,30 @@ public class RadCenterController {
 					if(users != null){						
 						radCenter.setUsers(users);
 					}	
+					radCenter.setPrivilegeCd(1);
+					radCenter.setSecurityDeposit(new BigDecimal(0.0));
+					radCenter.setDeploymentFee(new BigDecimal(0.0));
+					radCenter.setSiteCount(0);
+					radCenter.setRadiologistCount(1);
+					radCenter.setModalityCount(2);
+					radCenter.setModeOfCharge("M");
+					radCenter.setCtcharge(0);
+					radCenter.setMriCharge(new BigDecimal(0.0));
+					radCenter.setxRayCrCharge(new BigDecimal(0.0));
+					radCenter.setMammogramCharge(new BigDecimal(0.0));
+					radCenter.setServerRam("2 Gb");
+					radCenter.setServerCoreCount("5");
+					radCenter.setServerStorage("3");
+					radCenter.setServerMonthlyCharges(new BigDecimal(0.0));
+					radCenter.setFileName("tests.png");
+					radCenter.setFilePath("/apps/test/");
+					radCenter.setCreatedIpAddress("000.000");
+					radCenter.setModifiedIpAddress("000.000");
 					
-					radCenterService.saveOrUpdateRadCenter(radCenter);
+					String str = "sampleFile";
+					/*byte[] byteArr = str.getBytes();
+					radCenter.setPurchaseOrderCopy(byteArr);*/
+ 					radCenterService.saveOrUpdateRadCenter(radCenter);
 					
 				}
 			}

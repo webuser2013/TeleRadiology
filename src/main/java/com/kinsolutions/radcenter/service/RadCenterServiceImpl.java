@@ -1,5 +1,6 @@
 package com.kinsolutions.radcenter.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,17 @@ public class RadCenterServiceImpl implements RadCenterService {
 	@Override
 	public RadCenter saveOrUpdateRadCenter(RadCenter radCenter) {
 		if(radCenter != null){
-			if(radCenter.getRadCenterId() > 0) {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+			String strDate= formatter.format(new Date()); 
+			formatter = new SimpleDateFormat("hh:mm:ss");  
+			String strTime= formatter.format(new Date()); 
+			if(radCenter.getRadCenterId() != null && radCenter.getRadCenterId() > 0) {
 				//Update object
-				radCenter.setCreatedDate(new Date());
-				radCenter.setModifiedDate(new Date());
- 			} else {
- 				radCenter.setModifiedDate(new Date());
-			}
+  				radCenter.setModifiedDate(new Date());
+  			} else {
+ 				radCenter.setCreatedDate(new Date());
+  				radCenter.setModifiedDate(new Date());
+ 			}
 		}
  		return radCenterDao.saveOrUpdateRadCenter(radCenter);
 	}
