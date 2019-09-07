@@ -35,7 +35,15 @@ public class MessageResourceHelper {
 	@Value("${msg.radcen.saveerr}")
 	public String msgRadcenSaveErr;
 	
-	 
+	@Value("${msg.radcen.activateerr}")
+	public String msgRadcenActivateErr;
+	
+	@Value("${msg.radcen.deactivateerr}")
+	public String msgRadcenDeactivateErr;
+		
+	@Value("${msg.radcen.deleteerr}")
+	public String msgRadcenDeleteErr;
+	
 
 	public String getMsgDataNotFound() {
 		return msgDataNotFound;
@@ -107,6 +115,30 @@ public class MessageResourceHelper {
 
 	public void setMsgRadcenSaveErr(String msgRadcenSaveErr) {
 		this.msgRadcenSaveErr = msgRadcenSaveErr;
+	}
+
+	public String getMsgRadcenActivateErr() {
+		return msgRadcenActivateErr;
+	}
+
+	public void setMsgRadcenActivateErr(String msgRadcenActivateErr) {
+		this.msgRadcenActivateErr = msgRadcenActivateErr;
+	}
+
+	public String getMsgRadcenDeactivateErr() {
+		return msgRadcenDeactivateErr;
+	}
+
+	public void setMsgRadcenDeactivateErr(String msgRadcenDeactivateErr) {
+		this.msgRadcenDeactivateErr = msgRadcenDeactivateErr;
+	}
+
+	public String getMsgRadcenDeleteErr() {
+		return msgRadcenDeleteErr;
+	}
+
+	public void setMsgRadcenDeleteErr(String msgRadcenDeleteErr) {
+		this.msgRadcenDeleteErr = msgRadcenDeleteErr;
 	}
 
 	 

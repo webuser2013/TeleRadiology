@@ -30,7 +30,6 @@ public class RadCenterServiceImpl implements RadCenterService {
 		if(radCenter != null){			
 			if(radCenter.getRadCenterId() != null && radCenter.getRadCenterId() > 0) {
 				//Update object
-				radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
   				radCenter.setModifiedDate(new Date());
   			} else {
   				radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
@@ -39,6 +38,11 @@ public class RadCenterServiceImpl implements RadCenterService {
  			}
 		}
  		return radCenterDao.saveOrUpdateRadCenter(radCenter);
+	}
+
+	@Override
+	public boolean isRadCenterExists(String radCenterName) {
+		return radCenterDao.isRadCenterExists(radCenterName);
 	}
 
 }

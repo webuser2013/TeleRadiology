@@ -4,6 +4,11 @@ public class AppConstants {
 	
 	public static final String ALG_PWD_HASH = "MD5";
 	
+	public static final String OJB_RADCENTER_TYPENAME = "RADCENTER";
+	public static final String OJB_ACTION_CREATE = "CREATE";
+	public static final String OJB_ACTION_UPDATE = "UPDATE";
+	public static final String OJB_ACTION_DELETE = "DELETE";
+		
 	public static final int PRIVILEGECD_STATUS_ACTIVE = 1;
 	public static final int PRIVILEGECD_STATUS_INACTIVE = 2;
 	public static final int PRIVILEGECD_STATUS_DELETED = 3;
@@ -19,5 +24,8 @@ public class AppConstants {
 		
 	public static final int ERROR_DATA_NOTFOUND = 401;
 	public static final int ERROR_MNDDATA_NOT_FOUND = 402;
+	
+	public static final int ENTITY_ACTIVATE_FLAG = 501;
+	public static final int ENTITY_DEACTIVATE_FLAG = 502;
 
 }

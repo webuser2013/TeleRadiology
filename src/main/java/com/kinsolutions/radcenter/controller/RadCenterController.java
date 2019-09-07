@@ -1,10 +1,9 @@
 package com.kinsolutions.radcenter.controller;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,15 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kinsolutions.baseinfo.ErrorData;
 import com.kinsolutions.baseinfo.HeaderData;
+import com.kinsolutions.baseinfo.ObjectInfo;
 import com.kinsolutions.constants.AppConstants;
 import com.kinsolutions.model.RadCenter;
 import com.kinsolutions.model.Users;
-import com.kinsolutions.radcenter.resourceInfo.RadCenterInfo;
-import com.kinsolutions.radcenter.resourceInfo.RadCenterRequestInfo;
-import com.kinsolutions.radcenter.resourceInfo.RadCenterResponseInfo;
+import com.kinsolutions.radcenter.resourceInfo.RadCenterCrMdReqInfo;
+import com.kinsolutions.radcenter.resourceInfo.RadCenterCrMdResInfo;
 import com.kinsolutions.radcenter.service.RadCenterService;
 import com.kinsolutions.users.service.UserService;
-import com.kinsolutions.utils.AppHelper;
 import com.kinsolutions.utils.MessageResourceHelper;
 
 @RestController
@@ -38,39 +36,40 @@ public class RadCenterController {
 	
 	
 	@RequestMapping(value = "/saveOrUpdateRadCenter", method = RequestMethod.POST)
-	public ResponseEntity<RadCenterResponseInfo> saveOrUpdateRadCenter(@RequestBody RadCenterRequestInfo radCenterRequestInfo) {
-		RadCenterResponseInfo radCenterResponseInfo = new RadCenterResponseInfo();
+	public ResponseEntity<RadCenterCrMdResInfo> saveOrUpdateRadCenter(@RequestBody RadCenterCrMdReqInfo radCenterCrMdReqInfo) {
+		RadCenterCrMdResInfo radCenterResponseInfo = new RadCenterCrMdResInfo();
 		RadCenter radCenter = null;
-		RadCenterInfo radCenterInfo = new RadCenterInfo();
+		ObjectInfo objectInfo = new ObjectInfo();
 		Users users = null;
  		HeaderData headerData = new HeaderData();
 		boolean isNewMode = true;
 		try {
 			
-			if(radCenterRequestInfo != null){
- 				if(radCenterRequestInfo.getRadCenterId() != null && radCenterRequestInfo.getRadCenterId() > 0){
+			if(radCenterCrMdReqInfo != null){
+ 				if(radCenterCrMdReqInfo.getRadCenterId() != null && radCenterCrMdReqInfo.getRadCenterId() > 0){
 					//Update Object
-					radCenter = radCenterService.getRadCenterByRadCenterId(radCenterRequestInfo.getRadCenterId());
-					if(radCenter != null){
-						radCenter.setRadCenterName(radCenterRequestInfo.getRadCenterName());
-						users = userService.getUserByUserId(radCenterRequestInfo.getUserId());
+					radCenter = radCenterService.getRadCenterByRadCenterId(radCenterCrMdReqInfo.getRadCenterId());
+					if(radCenter != null) {
+						radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
+						users = userService.getUserByUserId(radCenterCrMdReqInfo.getUserId());
 						if(users != null){						
 							radCenter.setUsers(users);
 						}	
-						radCenter.setSecurityDeposit(radCenterRequestInfo.getSecurityDeposit());
-						radCenter.setDeploymentFee(radCenterRequestInfo.getDeploymentFee());
-						radCenter.setSiteCount(radCenterRequestInfo.getSiteCount());
-						radCenter.setRadiologistCount(radCenterRequestInfo.getRadiologistCount());
-						radCenter.setModalityCount(radCenterRequestInfo.getModalityCount());
-						radCenter.setModeOfCharge(radCenterRequestInfo.getModeOfCharge());
-						radCenter.setCtcharge(radCenterRequestInfo.getCtcharge());
-						radCenter.setMriCharge(radCenterRequestInfo.getMriCharge());
-						radCenter.setxRayCrCharge(radCenterRequestInfo.getxRayCrCharge());
-						radCenter.setMammogramCharge(radCenterRequestInfo.getMammogramcharge());
-						radCenter.setServerRam(radCenterRequestInfo.getServerRam());
-						radCenter.setServerCoreCount(radCenterRequestInfo.getServerCoreCount());
-						radCenter.setServerStorage(radCenterRequestInfo.getServerStorage());
-						radCenter.setServerMonthlyCharges(radCenterRequestInfo.getServerMonthlyCharges());
+						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
+						radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
+						radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
+						radCenter.setSiteCount(radCenterCrMdReqInfo.getSiteCount());
+						radCenter.setRadiologistCount(radCenterCrMdReqInfo.getRadiologistCount());
+						radCenter.setModalityCount(radCenterCrMdReqInfo.getModalityCount());
+						radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
+						radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
+						radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
+						radCenter.setxRayCrCharge(radCenterCrMdReqInfo.getxRayCrCharge());
+						radCenter.setMammogramCharge(radCenterCrMdReqInfo.getMammogramcharge());
+						radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
+						radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
+						radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
+						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
 						radCenter.setFileName("testsupd.png");
 						radCenter.setFilePath("/apps/testupd/");
 						radCenter.setCreatedIpAddress("000.000");
@@ -81,34 +80,31 @@ public class RadCenterController {
 				} else {
 					//Create Object
 					radCenter = new RadCenter();
-					radCenter.setRadCenterName(radCenterRequestInfo.getRadCenterName());
-					users = userService.getUserByUserId(radCenterRequestInfo.getUserId());
+					radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
+					users = userService.getUserByUserId(radCenterCrMdReqInfo.getUserId());
 					if(users != null){						
 						radCenter.setUsers(users);
 					}	
-					radCenter.setPrivilegeCd(1);
-					radCenter.setSecurityDeposit(radCenterRequestInfo.getSecurityDeposit());
-					radCenter.setDeploymentFee(radCenterRequestInfo.getDeploymentFee());
-					radCenter.setSiteCount(radCenterRequestInfo.getSiteCount());
-					radCenter.setRadiologistCount(radCenterRequestInfo.getRadiologistCount());
-					radCenter.setModalityCount(radCenterRequestInfo.getModalityCount());
-					radCenter.setModeOfCharge(radCenterRequestInfo.getModeOfCharge());
-					radCenter.setCtcharge(radCenterRequestInfo.getCtcharge());
-					radCenter.setMriCharge(radCenterRequestInfo.getMriCharge());
-					radCenter.setxRayCrCharge(radCenterRequestInfo.getxRayCrCharge());
-					radCenter.setMammogramCharge(radCenterRequestInfo.getMammogramcharge());
-					radCenter.setServerRam(radCenterRequestInfo.getServerRam());
-					radCenter.setServerCoreCount(radCenterRequestInfo.getServerCoreCount());
-					radCenter.setServerStorage(radCenterRequestInfo.getServerStorage());
-					radCenter.setServerMonthlyCharges(radCenterRequestInfo.getServerMonthlyCharges());
+					radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
+					radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
+					radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
+					radCenter.setSiteCount(radCenterCrMdReqInfo.getSiteCount());
+					radCenter.setRadiologistCount(radCenterCrMdReqInfo.getRadiologistCount());
+					radCenter.setModalityCount(radCenterCrMdReqInfo.getModalityCount());
+					radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
+					radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
+					radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
+					radCenter.setxRayCrCharge(radCenterCrMdReqInfo.getxRayCrCharge());
+					radCenter.setMammogramCharge(radCenterCrMdReqInfo.getMammogramcharge());
+					radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
+					radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
+					radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
+					radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
 					radCenter.setFileName("tests.png");
 					radCenter.setFilePath("/apps/test/");
 					radCenter.setCreatedIpAddress("000.000");
 					radCenter.setModifiedIpAddress("000.000");
-					
-					String str = "sampleFile";
-					/*byte[] byteArr = str.getBytes();
-					radCenter.setPurchaseOrderCopy(byteArr);*/					
+									
 				}
  				
  				radCenter = radCenterService.saveOrUpdateRadCenter(radCenter);
@@ -116,14 +112,17 @@ public class RadCenterController {
  					headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
  					headerData.setResponseDataCount(1);
  					radCenterResponseInfo.setHeaderData(headerData);
+ 					objectInfo.setObjectId(radCenter.getRadCenterId());
  					if(isNewMode) {
-  						radCenterInfo.setMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Created Successfully");
+ 						objectInfo.setActionType(AppConstants.OJB_ACTION_CREATE);
+ 						objectInfo.setObjectStatusMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Created Successfully");
  					} else {
- 						radCenterInfo.setMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Modified Successfully");
+ 						objectInfo.setActionType(AppConstants.OJB_ACTION_UPDATE);
+ 						objectInfo.setObjectStatusMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Modified Successfully");
  					}
- 					radCenterInfo.setRadCenterId(radCenter.getRadCenterId());
- 					radCenterInfo.setRadCenterName(radCenter.getRadCenterName());
- 					radCenterResponseInfo.setCenterInfo(radCenterInfo);
+ 					objectInfo.setObjectName(radCenter.getRadCenterName());
+ 					objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+ 					radCenterResponseInfo.setObjectInfo(objectInfo);
  				} else {
  					ErrorData errorData = new ErrorData();
  					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_SAVE);
@@ -139,7 +138,96 @@ public class RadCenterController {
 			e.printStackTrace();
 		}
 		
-		return new ResponseEntity<RadCenterResponseInfo>(radCenterResponseInfo, HttpStatus.OK);
+		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value = "/activateDeactivateRadCenter/{radCenterId}/{activationFlag}", method = RequestMethod.GET)
+	public ResponseEntity<RadCenterCrMdResInfo> activateDeactivateRadCenter(@PathVariable Integer radCenterId,@PathVariable int activationFlag) {
+		RadCenter radCenter = null;
+		RadCenterCrMdResInfo radCenterResponseInfo = new RadCenterCrMdResInfo();
+		HeaderData headerData = new HeaderData();
+		ObjectInfo objectInfo = new ObjectInfo();
+		try {
+			if(radCenterId != null && radCenterId > 0){
+				radCenter =  radCenterService.getRadCenterByRadCenterId(radCenterId);
+				ErrorData errorData = new ErrorData();
+				if(radCenter != null && radCenter.getPrivilegeCd() != AppConstants.PRIVILEGECD_STATUS_DELETED){					
+					if(activationFlag == AppConstants.ENTITY_ACTIVATE_FLAG){
+						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
+					} else {
+						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_INACTIVE);
+					}
+					radCenter = radCenterService.saveOrUpdateRadCenter(radCenter);
+					
+					if(radCenter != null){
+						headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+						headerData.setResponseDataCount(1);
+						radCenterResponseInfo.setHeaderData(headerData);
+						objectInfo.setObjectId(radCenter.getRadCenterId());
+						objectInfo.setActionType(AppConstants.OJB_ACTION_UPDATE);
+						objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+						objectInfo.setObjectName(radCenter.getRadCenterName());
+						if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_ACTIVE){ 						
+							objectInfo.setObjectStatusMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Activated Successfully");
+						} else{
+							objectInfo.setObjectStatusMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" DeActivated Successfully");
+						}
+						radCenterResponseInfo.setObjectInfo(objectInfo);
+					}  else {
+						errorData.setErrorCode(AppConstants.ERROR_RADCENTER_SAVE);
+						errorData.setErrorMessage(messageResourceHelper.getMsgRadcenDeactivateErr());
+						radCenterResponseInfo.setErrorData(errorData);
+						
+					}
+				} else {
+					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_SAVE);
+					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenDeactivateErr());
+					radCenterResponseInfo.setErrorData(errorData);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/deleteRadCenter/{radCenterId}/", method = RequestMethod.GET)
+	public ResponseEntity<RadCenterCrMdResInfo> deleteRadCenter(@PathVariable Integer radCenterId) {
+		RadCenter radCenter = null;
+		RadCenterCrMdResInfo radCenterResponseInfo = new RadCenterCrMdResInfo();
+		HeaderData headerData = new HeaderData();
+		ObjectInfo objectInfo = new ObjectInfo();
+		try {
+			if(radCenterId != null && radCenterId > 0){
+				radCenter =  radCenterService.getRadCenterByRadCenterId(radCenterId);
+				radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_DELETED);
+				radCenter = radCenterService.saveOrUpdateRadCenter(radCenter);
+				
+				if(radCenter != null){
+					headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+ 					headerData.setResponseDataCount(1);
+ 					radCenterResponseInfo.setHeaderData(headerData);
+ 					objectInfo.setObjectId(radCenter.getRadCenterId());
+ 					objectInfo.setActionType(AppConstants.OJB_ACTION_DELETE);
+ 					objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+ 					objectInfo.setObjectName(radCenter.getRadCenterName());
+ 					if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_DELETED){ 						
+ 						objectInfo.setObjectStatusMessage("RadCenter " + ( (radCenter != null ) ? radCenter.getRadCenterName() : "") +" Deleted Successfully");
+ 					} 
+ 					radCenterResponseInfo.setObjectInfo(objectInfo);
+				}  else {
+ 					ErrorData errorData = new ErrorData();
+ 					errorData.setErrorCode(AppConstants.ERROR_RADCEN_DELETED);
+ 					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenDeleteErr());
+ 					radCenterResponseInfo.setErrorData(errorData);
+ 					
+ 				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
 	}
 
 }

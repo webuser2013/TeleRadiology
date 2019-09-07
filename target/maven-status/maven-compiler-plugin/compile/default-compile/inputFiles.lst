@@ -3,14 +3,14 @@ G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\dao\LoginDao.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\TeleRadiologyApp.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\utils\MessageResourceHelper.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterCrMdResInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\baseinfo\HeaderData.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\controller\RadCenterController.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\baseinfo\ErrorData.java
-G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterResponseInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\utils\PasswordHashing.java
-G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterInfo.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\baseinfo\ObjectInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\users\service\UserServiceImpl.java
-G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterRequestInfo.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterCrMdReqInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\service\LoginService.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\service\LoginServiceImpl.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\service\RadCenterService.java

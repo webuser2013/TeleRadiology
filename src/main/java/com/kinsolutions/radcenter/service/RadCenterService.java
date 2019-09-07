@@ -9,5 +9,7 @@ public interface RadCenterService {
 	public RadCenter getRadCenterByRadCenterId(Integer radCenterId);
 	
 	public RadCenter saveOrUpdateRadCenter(RadCenter radCenter);
+	
+	public boolean isRadCenterExists(String radCenterName);
 
 }
