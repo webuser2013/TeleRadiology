@@ -17,6 +17,8 @@ import com.kinsolutions.model.RadCenter;
 import com.kinsolutions.model.Users;
 import com.kinsolutions.radcenter.resourceInfo.RadCenterCrMdReqInfo;
 import com.kinsolutions.radcenter.resourceInfo.RadCenterCrMdResInfo;
+import com.kinsolutions.radcenter.resourceInfo.RadCenterInfo;
+import com.kinsolutions.radcenter.resourceInfo.RadCenterResInfo;
 import com.kinsolutions.radcenter.service.RadCenterService;
 import com.kinsolutions.users.service.UserService;
 import com.kinsolutions.utils.MessageResourceHelper;
@@ -46,9 +48,9 @@ public class RadCenterController {
 		try {
 			
 			if(radCenterCrMdReqInfo != null){
- 				if(radCenterCrMdReqInfo.getRadCenterId() != null && radCenterCrMdReqInfo.getRadCenterId() > 0){
+ 				if(radCenterCrMdReqInfo.getRadCenterId() != null && radCenterCrMdReqInfo.getRadCenterId() != null && new Integer(radCenterCrMdReqInfo.getRadCenterId()) > 0){
 					//Update Object
-					radCenter = radCenterService.getRadCenterByRadCenterId(radCenterCrMdReqInfo.getRadCenterId());
+					radCenter = radCenterService.getRadCenterByRadCenterId(new Integer(radCenterCrMdReqInfo.getRadCenterId()));
 					if(radCenter != null) {
 						radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
 						users = userService.getUserByUserId(radCenterCrMdReqInfo.getUserId());
@@ -58,9 +60,9 @@ public class RadCenterController {
 						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 						radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 						radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
-						radCenter.setSiteCount(radCenterCrMdReqInfo.getSiteCount());
-						radCenter.setRadiologistCount(radCenterCrMdReqInfo.getRadiologistCount());
-						radCenter.setModalityCount(radCenterCrMdReqInfo.getModalityCount());
+						radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
+						radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
+						radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
 						radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 						radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 						radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -81,16 +83,17 @@ public class RadCenterController {
 					//Create Object
 					radCenter = new RadCenter();
 					radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
-					users = userService.getUserByUserId(radCenterCrMdReqInfo.getUserId());
+					System.out.println("radCenterCrMdReqInfo.getRadCenterId()>>>>>>>>"+radCenterCrMdReqInfo.getUserId());
+ 					users = userService.getUserByUserId(new Integer(radCenterCrMdReqInfo.getUserId()));
 					if(users != null){						
 						radCenter.setUsers(users);
 					}	
 					radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 					radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 					radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
-					radCenter.setSiteCount(radCenterCrMdReqInfo.getSiteCount());
-					radCenter.setRadiologistCount(radCenterCrMdReqInfo.getRadiologistCount());
-					radCenter.setModalityCount(radCenterCrMdReqInfo.getModalityCount());
+					radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
+					radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
+					radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
 					radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 					radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 					radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -229,5 +232,62 @@ public class RadCenterController {
 		}
 		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
 	}
-
+	
+	
+	@RequestMapping(value = "/getRadCenterByRadCenterId/{radCenterId}/", method = RequestMethod.GET)
+	public ResponseEntity<RadCenterResInfo> getRadCenterByRadCenterId(@PathVariable Integer radCenterId) {
+		RadCenter radCenter = null;
+		RadCenterResInfo radCenterResInfo = new RadCenterResInfo();
+		RadCenterInfo radCenterInfo = new RadCenterInfo();
+		HeaderData headerData = new HeaderData();
+ 		
+		try {
+			if(radCenterId != null && radCenterId > 0){
+				radCenter =  radCenterService.getRadCenterByRadCenterId(radCenterId);
+				
+				if(radCenter != null){
+					headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+ 					headerData.setResponseDataCount(1);
+ 					radCenterResInfo.setHeaderData(headerData);
+ 					 
+ 					radCenterInfo.setRadCenterId(radCenter.getRadCenterId());
+ 					radCenterInfo.setRadCenterName(radCenter.getRadCenterName());
+ 					if(radCenter.getUsers() != null){						
+ 						radCenterInfo.setUserId(radCenter.getUsers().getUserId());
+ 						radCenterInfo.setUsername(radCenter.getUsers().getName());
+					}	
+ 					radCenterInfo.setPrivilegeCd(radCenter.getPrivilegeCd());
+ 					radCenterInfo.setSecurityDeposit(radCenter.getSecurityDeposit());
+ 					radCenterInfo.setDeploymentFee(radCenter.getDeploymentFee());
+ 					radCenterInfo.setSiteCount(radCenter.getSiteCount());
+ 					radCenterInfo.setRadiologistCount(radCenter.getRadiologistCount());
+ 					radCenterInfo.setModalityCount(radCenter.getModalityCount());
+ 					radCenterInfo.setModeOfCharge(radCenter.getModeOfCharge());
+ 					radCenterInfo.setCtcharge(radCenter.getCtcharge());
+ 					radCenterInfo.setMriCharge(radCenter.getMriCharge());
+ 					radCenterInfo.setxRayCrCharge(radCenter.getxRayCrCharge());
+					radCenterInfo.setMammogramCharge(radCenter.getMammogramCharge());
+					radCenterInfo.setServerRam(radCenter.getServerRam());
+					radCenterInfo.setServerCoreCount(radCenter.getServerCoreCount());
+					radCenterInfo.setServerStorage(radCenter.getServerStorage());
+					radCenterInfo.setServerMonthlyCharges(radCenter.getServerMonthlyCharges());
+					radCenterInfo.setFileName("tests.png");
+					radCenterInfo.setFilePath("/apps/test/");
+					radCenterInfo.setCreatedIpAddress("000.000");
+					radCenterInfo.setModifiedIpAddress("000.000");
+ 					
+  					radCenterResInfo.setRadCenterInfo(radCenterInfo);
+				}  else {
+ 					ErrorData errorData = new ErrorData();
+ 					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_READ);
+ 					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenReadErr());
+ 					radCenterResInfo.setErrorData(errorData);
+  				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<RadCenterResInfo>(radCenterResInfo, HttpStatus.OK);
+	}
 }

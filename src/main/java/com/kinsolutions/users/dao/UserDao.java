@@ -18,7 +18,7 @@ public class UserDao {
 	@PersistenceContext	
 	private EntityManager entityManager;
 
-	public Users getUserByUserId(long userId) {
+	public Users getUserByUserId(Integer userId) {
 		List<Users> usersList = null;
 		try {
 			 

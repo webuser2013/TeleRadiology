@@ -4,7 +4,7 @@ import com.kinsolutions.model.RadCenter;
 
 public interface RadCenterService {
 	
-	public RadCenter getRadCenterByUserId(long userId);
+	public RadCenter getRadCenterByUserId(Integer userId);
 	
 	public RadCenter getRadCenterByRadCenterId(Integer radCenterId);
 	

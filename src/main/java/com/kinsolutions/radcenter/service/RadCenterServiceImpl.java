@@ -16,7 +16,7 @@ public class RadCenterServiceImpl implements RadCenterService {
 	private RadCenterDao radCenterDao;
 
 	@Override
-	public RadCenter getRadCenterByUserId(long userId) {
+	public RadCenter getRadCenterByUserId(Integer userId) {
  		return radCenterDao.getRadCenterByUserId(userId);
 	}
 

@@ -18,7 +18,7 @@ public class RadCenterDao {
 	@PersistenceContext	
 	private EntityManager entityManager;
 
-	public RadCenter getRadCenterByUserId(long userId) {
+	public RadCenter getRadCenterByUserId(Integer userId) {
 		List<RadCenter> radCenterList = null;
 		try {
 			String hqlQuery = "FROM RadCenter WHERE users.userId = ?";

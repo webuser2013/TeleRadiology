@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public Users getUserByUserId(long userId) {
+	public Users getUserByUserId(Integer userId) {
 		// TODO Auto-generated method stub
 		return userDao.getUserByUserId(userId);
 	}

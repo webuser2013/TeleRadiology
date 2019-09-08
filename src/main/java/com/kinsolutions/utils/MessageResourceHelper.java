@@ -44,6 +44,9 @@ public class MessageResourceHelper {
 	@Value("${msg.radcen.deleteerr}")
 	public String msgRadcenDeleteErr;
 	
+	@Value("${msg.radcen.readerr}")
+	public String msgRadcenReadErr;
+	
 
 	public String getMsgDataNotFound() {
 		return msgDataNotFound;
@@ -139,6 +142,14 @@ public class MessageResourceHelper {
 
 	public void setMsgRadcenDeleteErr(String msgRadcenDeleteErr) {
 		this.msgRadcenDeleteErr = msgRadcenDeleteErr;
+	}
+
+	public String getMsgRadcenReadErr() {
+		return msgRadcenReadErr;
+	}
+
+	public void setMsgRadcenReadErr(String msgRadcenReadErr) {
+		this.msgRadcenReadErr = msgRadcenReadErr;
 	}
 
 	 

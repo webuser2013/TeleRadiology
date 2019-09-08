@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class RadCenterCrMdReqInfo implements Serializable {
 	
     private Integer radCenterId;  
 	private String radCenterName;
-	private long userId;
+	private Integer userId;
+	 @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss")
  	private Date radCenterDate;
 	private BigDecimal securityDeposit;
 	private BigDecimal deploymentFee;
@@ -17,7 +20,7 @@ public class RadCenterCrMdReqInfo implements Serializable {
 	private Integer modalityCount;
 	private byte[] purchaseOrderCopy;
 	private String modeOfCharge;
-	private Integer ctcharge;
+	private BigDecimal ctcharge;
 	private BigDecimal mriCharge;
 	private BigDecimal xRayCrCharge;
 	private BigDecimal mammogramcharge;
@@ -38,10 +41,10 @@ public class RadCenterCrMdReqInfo implements Serializable {
 	public void setRadCenterName(String radCenterName) {
 		this.radCenterName = radCenterName;
 	}
-	public long getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(long userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 	public Date getRadCenterDate() {
@@ -92,10 +95,10 @@ public class RadCenterCrMdReqInfo implements Serializable {
 	public void setModeOfCharge(String modeOfCharge) {
 		this.modeOfCharge = modeOfCharge;
 	}
-	public Integer getCtcharge() {
+	public BigDecimal getCtcharge() {
 		return ctcharge;
 	}
-	public void setCtcharge(Integer ctcharge) {
+	public void setCtcharge(BigDecimal ctcharge) {
 		this.ctcharge = ctcharge;
 	}
 	public BigDecimal getMriCharge() {
