@@ -35,5 +35,41 @@ public class UserDao {
 		}
 		return null;
 	}
+	
+	public List<Users> getAllActiveInActiveExceptLoggedInUsers(Integer userId) {
+		List<Users> usersList = null;
+		try {
+			 
+			String hqlQuery = "FROM Users WHERE userId NOT IN (?) AND privilegeCd NOT IN (?)";
+			usersList = entityManager.createQuery(hqlQuery, Users.class).setParameter(1, userId).setParameter(2, AppConstants.PRIVILEGECD_STATUS_DELETED).getResultList();
+			
+			if(usersList != null && usersList.size() > 0) {
+				return usersList;
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Users getAllUsers(Integer userId) {
+		List<Users> usersList = null;
+		try {
+			 
+			String hqlQuery = "FROM Users WHERE userId = ?";
+			usersList = entityManager.createQuery(hqlQuery, Users.class).setParameter(1, userId).getResultList();
+			
+			if(usersList != null && usersList.size() > 0) {
+				return usersList.get(0);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

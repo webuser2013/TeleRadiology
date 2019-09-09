@@ -1,5 +1,8 @@
 package com.kinsolutions.radcenter.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,8 @@ import com.kinsolutions.radcenter.resourceInfo.RadCenterCrMdResInfo;
 import com.kinsolutions.radcenter.resourceInfo.RadCenterInfo;
 import com.kinsolutions.radcenter.resourceInfo.RadCenterResInfo;
 import com.kinsolutions.radcenter.service.RadCenterService;
+import com.kinsolutions.users.resourceInfo.UsersInfo;
+import com.kinsolutions.users.resourceInfo.UsersResInfo;
 import com.kinsolutions.users.service.UserService;
 import com.kinsolutions.utils.MessageResourceHelper;
 
@@ -289,5 +294,61 @@ public class RadCenterController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<RadCenterResInfo>(radCenterResInfo, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getAllUsers/{loggedInUserId}/", method = RequestMethod.GET)
+	public ResponseEntity<UsersResInfo> getAllUsers(@PathVariable Integer loggedInUserId) {
+ 		UsersResInfo usersResInfo = new UsersResInfo();
+		HeaderData headerData = new HeaderData();
+ 		List<Users> usersList = new ArrayList<Users>(); 
+ 		List<UsersInfo> usersInfoList = new ArrayList<UsersInfo>();
+ 		try {
+			if(loggedInUserId != null && loggedInUserId > 0){
+				Users users = userService.getAllUsers(loggedInUserId);
+				if(users != null) {	
+					
+					if(users.getPrivilegeCd() != AppConstants.PRIVILEGECD_STATUS_DELETED) {						
+						usersList = userService.getAllActiveInActiveExceptLoggedInUsers(loggedInUserId);
+						if(usersList != null && usersList.size() > 0){
+							headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+							headerData.setResponseDataCount(usersList.size());
+							usersResInfo.setHeaderData(headerData);
+							
+							for (int i = 0; i < usersList.size(); i++) {
+								UsersInfo usersInfo = new UsersInfo();
+								usersInfo.setUserId(usersList.get(i).getUserId());
+								usersInfo.setName(usersList.get(i).getName());
+								usersInfo.setAddress(usersList.get(i).getAddress());
+								usersInfo.setEmailId(usersList.get(i).getEmailId());
+								usersInfo.setMobileNumber(usersList.get(i).getMobileNumber());
+								usersInfo.setAlternativeNumber(usersList.get(i).getAlternativeMobileNumber());
+								usersInfo.setPincode(usersList.get(i).getPincode());
+								usersInfoList.add(usersInfo);
+							}
+							usersResInfo.setUsersInfoList(usersInfoList);
+						} else{
+							ErrorData errorData = new ErrorData();
+							errorData.setErrorCode(AppConstants.ERROR_USER_DELETED);
+							errorData.setErrorMessage(messageResourceHelper.getMsgUserDeleted());
+							usersResInfo.setErrorData(errorData);
+						}
+					} else{
+						ErrorData errorData = new ErrorData();
+						errorData.setErrorCode(AppConstants.ERROR_USER_DELETED);
+						errorData.setErrorMessage(messageResourceHelper.getMsgUserDeleted());
+						usersResInfo.setErrorData(errorData);
+					}
+				} else {
+ 					ErrorData errorData = new ErrorData();
+					errorData.setErrorCode(AppConstants.ERROR_USER_NOTFOUND);
+					errorData.setErrorMessage(messageResourceHelper.getMsgUserNotFound());
+					usersResInfo.setErrorData(errorData);
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<UsersResInfo>(usersResInfo, HttpStatus.OK);
 	}
 }
