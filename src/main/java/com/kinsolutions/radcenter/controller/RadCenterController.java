@@ -1,13 +1,16 @@
 package com.kinsolutions.radcenter.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kinsolutions.baseinfo.ErrorData;
 import com.kinsolutions.baseinfo.HeaderData;
 import com.kinsolutions.baseinfo.ObjectInfo;
+import com.kinsolutions.common.Service.FileStorageService;
+import com.kinsolutions.common.validator.FileValidator;
 import com.kinsolutions.constants.AppConstants;
 import com.kinsolutions.model.RadCenter;
 import com.kinsolutions.model.Users;
@@ -32,6 +37,7 @@ import com.kinsolutions.radcenter.service.RadCenterService;
 import com.kinsolutions.users.resourceInfo.UsersInfo;
 import com.kinsolutions.users.resourceInfo.UsersResInfo;
 import com.kinsolutions.users.service.UserService;
+import com.kinsolutions.utils.AppHelper;
 import com.kinsolutions.utils.MessageResourceHelper;
 
 @RestController
@@ -46,6 +52,12 @@ public class RadCenterController {
 	
 	@Autowired
 	private MessageResourceHelper messageResourceHelper;
+	
+	@Autowired
+    private FileStorageService fileStorageService;
+	
+	@Autowired
+    private FileValidator fileValidator;
 	
 	
 	@RequestMapping(value = "/saveOrUpdateRadCenter", method = RequestMethod.POST)
@@ -71,9 +83,15 @@ public class RadCenterController {
 						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 						radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 						radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
-						radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
-						radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
-						radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
+						if(radCenterCrMdReqInfo.getSiteCount() != null){							
+							radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
+						}
+						if(radCenterCrMdReqInfo.getRadiologistCount() != null){							
+							radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
+						}
+						if(radCenterCrMdReqInfo.getModalityCount() != null){
+							radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
+						}
 						radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 						radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 						radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -82,10 +100,8 @@ public class RadCenterController {
 						radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
 						radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
 						radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
-						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());						
-						radCenter.setFileName("testsupd.png");
-						radCenter.setFilePath("/apps/testupd/");
-						radCenter.setCreatedIpAddress("000.000");
+						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
+ 						radCenter.setCreatedIpAddress("000.000");
 						radCenter.setModifiedIpAddress("000.000");
 						isNewMode = false;
 					}
@@ -102,9 +118,15 @@ public class RadCenterController {
 					radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 					radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 					radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
-					radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
-					radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
-					radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
+					if(radCenterCrMdReqInfo.getSiteCount() != null){							
+						radCenter.setSiteCount(new Integer(radCenterCrMdReqInfo.getSiteCount()));
+					}
+					if(radCenterCrMdReqInfo.getRadiologistCount() != null){							
+						radCenter.setRadiologistCount(new Integer(radCenterCrMdReqInfo.getRadiologistCount()));
+					}
+					if(radCenterCrMdReqInfo.getModalityCount() != null){
+						radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
+					}
 					radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 					radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 					radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -113,9 +135,7 @@ public class RadCenterController {
 					radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
 					radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
 					radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
-					radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
-					radCenter.setFileName("tests.png");
-					radCenter.setFilePath("/apps/test/");
+					radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());					
 					radCenter.setCreatedIpAddress("000.000");
 					radCenter.setModifiedIpAddress("000.000");
 									
@@ -153,6 +173,109 @@ public class RadCenterController {
 		}
 		
 		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/uploadPurchaseOrder/{radCenterId}/{radCenterName}", method = RequestMethod.POST)
+	public ResponseEntity<RadCenterCrMdResInfo> uploadPurchaseOrder(@RequestParam("file") MultipartFile file,@PathVariable Integer radCenterId,@PathVariable String radCenterName) {
+ 		RadCenterCrMdResInfo radCenterCrMdResInfo= new RadCenterCrMdResInfo();
+		ObjectInfo objectInfo = new ObjectInfo();		
+ 		HeaderData headerData = new HeaderData();
+ 		try {
+			System.out.println("uploadPurchaseOrder>>>>>>>>>>>>>>>>>>>");
+			 if(file != null){
+				 
+				 boolean isPdfFile = fileValidator.isPdfFileFormat(file);
+				 if(isPdfFile){
+					 boolean isFileSizeExceed = fileValidator.isFileSizeExceed(file);
+					 if(!isFileSizeExceed){
+						 String uploadPath = AppConstants.FILE_UPD_BASEPATH+AppConstants.RADCENTER_PO_FILEPATH+"RadCen-"+radCenterId+"//";
+						 System.out.println("uploadPath>>>>>"+uploadPath);
+						 String fileName = fileStorageService.storeFile(file,uploadPath);
+						 System.out.println("Uploaded File ......."+fileName);
+						 
+						 headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+	 					 headerData.setResponseDataCount(1);
+	 					 radCenterCrMdResInfo.setHeaderData(headerData);
+	 					 objectInfo.setObjectId(radCenterId);
+	 					 objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+	 					 objectInfo.setObjectName(fileName);
+	 					 objectInfo.setActionType(AppConstants.OJB_ACTION_UPLOAD);
+	 					 objectInfo.setObjectStatusMessage(messageResourceHelper.getMsgRadCenUpdPurchaseOrder());
+	 					 radCenterCrMdResInfo.setObjectInfo(objectInfo);
+	 					 
+	 					RadCenter radCenter = radCenterService.getRadCenterByRadCenterId(radCenterId);
+	 					
+	 					if(radCenter != null){
+	 						String fileFullPath = uploadPath+fileName;
+	 						System.out.println("fileFullPath?>>>>>>>>"+fileFullPath);
+	 						byte[] fileObjInBytes = AppHelper.getFileObject(fileFullPath);
+	 						System.out.println("fileObjInBytes...passed.");
+	 						radCenter.setPurchaseOrderCopy(fileObjInBytes);
+	 						System.out.println("fileNam>>>>>"+fileName+" uploadPath>>>>"+uploadPath);
+	 						radCenter.setFileName(fileName);
+	 						radCenter.setFilePath(uploadPath);
+	 						radCenterService.saveOrUpdateRadCenter(radCenter);
+	 						System.out.println("Radcenter PO object Updated Successfully.....");
+	 					}
+	 					
+					 } else {
+						ErrorData errorData = new ErrorData();
+						errorData.setErrorCode(AppConstants.ERROR_RADCENTER_UPDPOSIZE);
+						errorData.setErrorMessage(messageResourceHelper.getMsgRadcenUpdPurchaseOrderSizEerr());
+						radCenterCrMdResInfo.setErrorData(errorData);
+					 }
+					 
+				 } else {
+					ErrorData errorData = new ErrorData();
+					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_UPDPO);
+					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenUpdPurChaseOrderErr());
+					radCenterCrMdResInfo.setErrorData(errorData);
+				 }
+				 
+			 } else {
+				ErrorData errorData = new ErrorData();
+				errorData.setErrorCode(AppConstants.ERROR_RADCENTER_UPDPO);
+				errorData.setErrorMessage(messageResourceHelper.getMsgRadcenUpdPurChaseOrderErr());
+				radCenterCrMdResInfo.setErrorData(errorData);
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<RadCenterCrMdResInfo>(radCenterCrMdResInfo, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/downloadPurchaseOrder/{radCenterId}/", method = RequestMethod.GET)
+	public ResponseEntity<Resource> downloadPurchaseOrder(@PathVariable Integer radCenterId) {
+		RadCenter radCenter = null;
+ 		HttpHeaders header = new HttpHeaders();
+		long purchaseOrderFilesize = 0;
+		InputStreamResource resource = null;
+		try {
+			System.out.println("downloadPurchaseOrder>>>>>>>>>>");
+			radCenter =  radCenterService.getRadCenterByRadCenterId(radCenterId);
+			if(radCenter != null){
+				 System.out.println("radCenter.getFilePath()>>>>>>>>>>"+radCenter.getFilePath()+" >>>radCenter.getFileName()>>>>"+radCenter.getFileName());
+				 String purchaseOrderFilePath = null;
+				 if(radCenter.getFilePath() != null && radCenter.getFileName() != null){
+					 purchaseOrderFilePath = radCenter.getFilePath().trim()+radCenter.getFileName().trim();
+				 }
+				 System.out.println("purchaseOrderFilePath>>>>>>>>>>"+purchaseOrderFilePath);
+				 if(purchaseOrderFilePath != null){					 
+					 File purchaseOrderFile = new File(purchaseOrderFilePath); 
+					 resource = new InputStreamResource(new FileInputStream(purchaseOrderFile));
+					 purchaseOrderFilesize = purchaseOrderFile.length();
+					 header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+radCenter.getFileName());
+					 header.add("Cache-Control", "no-cache, no-store, must-revalidate");
+					 header.add("Pragma", "no-cache");
+					 header.add("Expires", "0");
+				 }
+ 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 System.out.println("Download.........");
+		return ResponseEntity.ok().headers(header).contentLength(purchaseOrderFilesize).contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
 	}
 	
 	

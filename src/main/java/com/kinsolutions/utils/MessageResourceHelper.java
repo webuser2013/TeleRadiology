@@ -49,6 +49,15 @@ public class MessageResourceHelper {
 	
 	@Value("${msg.user.notfound}")
 	public String msgUserNotFound;
+		
+	@Value("${msg.radcen.updpoerr}")
+	public String msgRadcenUpdPurChaseOrderErr;
+	
+	@Value("${msg.radcen.updposizeerr}")
+	public String msgRadcenUpdPurchaseOrderSizEerr;	
+	
+	@Value("${msg.radcen.updpo}")
+	public String msgRadCenUpdPurchaseOrder;
 
 	public String getMsgDataNotFound() {
 		return msgDataNotFound;
@@ -160,6 +169,30 @@ public class MessageResourceHelper {
 
 	public void setMsgUserNotFound(String msgUserNotFound) {
 		this.msgUserNotFound = msgUserNotFound;
+	}
+
+	public String getMsgRadcenUpdPurChaseOrderErr() {
+		return msgRadcenUpdPurChaseOrderErr;
+	}
+
+	public void setMsgRadcenUpdPurChaseOrderErr(String msgRadcenUpdPurChaseOrderErr) {
+		this.msgRadcenUpdPurChaseOrderErr = msgRadcenUpdPurChaseOrderErr;
+	}
+
+	public String getMsgRadcenUpdPurchaseOrderSizEerr() {
+		return msgRadcenUpdPurchaseOrderSizEerr;
+	}
+
+	public void setMsgRadcenUpdPurchaseOrderSizEerr(String msgRadcenUpdPurchaseOrderSizEerr) {
+		this.msgRadcenUpdPurchaseOrderSizEerr = msgRadcenUpdPurchaseOrderSizEerr;
+	}
+
+	public String getMsgRadCenUpdPurchaseOrder() {
+		return msgRadCenUpdPurchaseOrder;
+	}
+
+	public void setMsgRadCenUpdPurchaseOrder(String msgRadCenUpdPurchaseOrder) {
+		this.msgRadCenUpdPurchaseOrder = msgRadCenUpdPurchaseOrder;
 	}
 
 	 

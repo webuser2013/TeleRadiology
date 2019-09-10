@@ -8,6 +8,8 @@ public class AppConstants {
 	public static final String OJB_ACTION_CREATE = "CREATE";
 	public static final String OJB_ACTION_UPDATE = "UPDATE";
 	public static final String OJB_ACTION_DELETE = "DELETE";
+	public static final String OJB_ACTION_UPLOAD = "UPLOAD";
+	public static final String FILE_PO_EXT = "pdf";
 		
 	public static final int PRIVILEGECD_STATUS_ACTIVE = 1;
 	public static final int PRIVILEGECD_STATUS_INACTIVE = 2;
@@ -24,6 +26,8 @@ public class AppConstants {
 	public static final int ERROR_RADCENTER_READ = 306;
 	public static final int ERROR_USER_NOTFOUND = 307;
 	public static final int ERROR_RADCENTER_NOTFOUND = 308;
+	public static final int ERROR_RADCENTER_UPDPO = 309;
+	public static final int ERROR_RADCENTER_UPDPOSIZE = 310;
 		
 	public static final int ERROR_DATA_NOTFOUND = 401;
 	public static final int ERROR_MNDDATA_NOT_FOUND = 402;
@@ -31,6 +35,7 @@ public class AppConstants {
 	public static final int ENTITY_ACTIVATE_FLAG = 501;
 	public static final int ENTITY_DEACTIVATE_FLAG = 502;
 	
-	public static String RADCENTER_PO_FILEPATH = "C://temp//";
+	public static String RADCENTER_PO_FILEPATH = "RadCenter//";
+	public static String FILE_UPD_BASEPATH = "C://";
 
 }
