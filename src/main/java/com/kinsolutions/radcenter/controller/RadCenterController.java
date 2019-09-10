@@ -49,8 +49,7 @@ public class RadCenterController {
 	
 	
 	@RequestMapping(value = "/saveOrUpdateRadCenter", method = RequestMethod.POST)
-	public ResponseEntity<RadCenterCrMdResInfo> saveOrUpdateRadCenter(@RequestBody RadCenterCrMdReqInfo radCenterCrMdReqInfo,@RequestParam("file") MultipartFile purchaseOrderFile
-) {
+	public ResponseEntity<RadCenterCrMdResInfo> saveOrUpdateRadCenter(@RequestBody RadCenterCrMdReqInfo radCenterCrMdReqInfo) {
 		RadCenterCrMdResInfo radCenterResponseInfo = new RadCenterCrMdResInfo();
 		RadCenter radCenter = null;
 		ObjectInfo objectInfo = new ObjectInfo();
@@ -83,15 +82,7 @@ public class RadCenterController {
 						radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
 						radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
 						radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
-						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
-						
-						//Upload the File to Path
-						// Get the file and save it somewhere
-			            byte[] bytes = purchaseOrderFile.getBytes();
-			            Path path = Paths.get(AppConstants.RADCENTER_PO_FILEPATH + purchaseOrderFile.getOriginalFilename());
-			            Files.write(path, bytes);
-						
-						
+						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());						
 						radCenter.setFileName("testsupd.png");
 						radCenter.setFilePath("/apps/testupd/");
 						radCenter.setCreatedIpAddress("000.000");
