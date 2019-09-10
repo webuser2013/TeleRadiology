@@ -7,6 +7,8 @@ G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\utils\PasswordHashing.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\baseinfo\ObjectInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterInfo.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\users\resourceInfo\UsersInfo.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterListResInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\resourceInfo\RadCenterCrMdReqInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\radcenter\service\RadCenterService.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\constants\AppConstants.java
@@ -21,5 +23,6 @@ G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\users\service\UserServiceImpl.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\service\LoginService.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\service\LoginServiceImpl.java
+G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\users\resourceInfo\UsersResInfo.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\users\service\UserService.java
 G:\WorkNHire\kinsolutions\Workspace\TeleRadiology\src\main\java\com\kinsolutions\login\resourceinfo\LoginResponse.java

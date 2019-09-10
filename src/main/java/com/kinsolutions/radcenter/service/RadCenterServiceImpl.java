@@ -1,6 +1,7 @@
 package com.kinsolutions.radcenter.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,11 @@ public class RadCenterServiceImpl implements RadCenterService {
 	@Override
 	public boolean isRadCenterExists(String radCenterName) {
 		return radCenterDao.isRadCenterExists(radCenterName);
+	}
+	
+	@Override
+	public List<RadCenter> getAllRadCenter(){
+		return radCenterDao.getAllRadCenter();
 	}
 
 }

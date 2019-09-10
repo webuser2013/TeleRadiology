@@ -71,5 +71,19 @@ public class RadCenterDao {
 		}
 		return false;
 	}
+	
+	public List<RadCenter> getAllRadCenter() {
+		List<RadCenter> radCenterList = null;
+		try {
+			String hqlQuery = "FROM RadCenter WHERE privilegeCd NOT IN (?) ORDER BY radCenterName";
+			radCenterList = entityManager.createQuery(hqlQuery, RadCenter.class).setParameter(1, AppConstants.PRIVILEGECD_STATUS_DELETED).getResultList();
+			if(radCenterList != null && radCenterList.size() > 0) {
+				return radCenterList;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

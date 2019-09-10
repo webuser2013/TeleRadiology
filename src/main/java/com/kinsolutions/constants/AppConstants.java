@@ -23,11 +23,14 @@ public class AppConstants {
 	public static final int ERROR_RADCENTER_SAVE = 305;
 	public static final int ERROR_RADCENTER_READ = 306;
 	public static final int ERROR_USER_NOTFOUND = 307;
+	public static final int ERROR_RADCENTER_NOTFOUND = 308;
 		
 	public static final int ERROR_DATA_NOTFOUND = 401;
 	public static final int ERROR_MNDDATA_NOT_FOUND = 402;
 	
 	public static final int ENTITY_ACTIVATE_FLAG = 501;
 	public static final int ENTITY_DEACTIVATE_FLAG = 502;
+	
+	public static String RADCENTER_PO_FILEPATH = "C://temp//";
 
 }
