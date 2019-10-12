@@ -31,7 +31,7 @@ public class LoginController {
 		
 	@Autowired
 	private RadCenterService radCenterService;
-		
+ 		
 	@Autowired
 	private MessageResourceHelper messageResourceHelper;
 	
@@ -48,46 +48,73 @@ public class LoginController {
  		try {
 			System.out.println("authenticateUserLogin method Called.........");
 			
-			if(loginInfoResource != null && loginInfoResource.getEmailId() != null && loginInfoResource.getPassword() != null) {
+			if(loginInfoResource != null && loginInfoResource.getReferenceName() != null && loginInfoResource.getPassword() != null) {
 				
-				String emailId = loginInfoResource.getEmailId();
+				String referenceName = loginInfoResource.getReferenceName();
 				String password = loginInfoResource.getPassword();
 				String encPwd = PasswordHashing.getEnryptedPassword(password);
- 				Users users = loginService.authenticateUser(emailId,encPwd);
+ 				Users users = loginService.authenticateUser(referenceName,encPwd);
 				
 				if(users != null){			
 					System.out.println("users not null.........");
-					RadCenter radCenter = radCenterService.getRadCenterByUserId(users.getUserId());
+					
+					Integer radCenterId = users.getRadCenterId();
+					if(radCenterId != null && radCenterId > 0){
+						RadCenter radCenter = radCenterService.getRadCenterByRadCenterId(radCenterId);
 						
-					if(radCenter != null && radCenter.getPrivilegeCd() != AppConstants.PRIVILEGECD_STATUS_ACTIVE ){
-						System.out.println("Radcenter is Inactive State....");
-						if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_INACTIVE) {
-							responseCode = AppConstants.SUCCESS_RESONSE_CODE;
-							businessErrCode = AppConstants.ERROR_RADCEN_INACTIVE;
-							businessErrMsg = messageResourceHelper.getMsgRadCenInactive();							
-						} else if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_DELETED) {
-							responseCode = AppConstants.SUCCESS_RESONSE_CODE;
-							businessErrCode = AppConstants.ERROR_RADCEN_DELETED;
-							businessErrMsg = messageResourceHelper.getMsgRadCenDeleted();	
+						if(radCenter != null && radCenter.getPrivilegeCd() != AppConstants.PRIVILEGECD_STATUS_ACTIVE ){
+							System.out.println("Radcenter is Inactive State....");
+							if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_INACTIVE) {
+								responseCode = AppConstants.SUCCESS_RESONSE_CODE;
+								businessErrCode = AppConstants.ERROR_RADCEN_INACTIVE;
+								businessErrMsg = messageResourceHelper.getMsgRadCenInactive();							
+							} else if(radCenter.getPrivilegeCd() == AppConstants.PRIVILEGECD_STATUS_DELETED) {
+								responseCode = AppConstants.SUCCESS_RESONSE_CODE;
+								businessErrCode = AppConstants.ERROR_RADCEN_DELETED;
+								businessErrMsg = messageResourceHelper.getMsgRadCenDeleted();	
+							}
+						} else {
+							
+							isUserAuth = true;
+							headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+							headerData.setResponseDataCount(1);
+							headerData.setSessionId(session.getId());
+							loginResponse.setHeaderData(headerData);
+							
+							loginInfoResource.setName(users.getName().trim());
+							loginInfoResource.setUserName(users.getUsername());
+							loginInfoResource.setEmailId(users.getEmailId());
+							loginInfoResource.setUserId(users.getUserId());
+							loginInfoResource.setEmailId(users.getEmailId().trim());
+							loginInfoResource.setRoleName(users.getRoles().getRoleName().trim());
+							loginInfoResource.setRoleId(users.getRoles().getRoleId());
+ 							loginInfoResource.setAddress(users.getAddress().trim());
+							if(radCenter != null) {
+								loginInfoResource.setRadCenterName(radCenter.getRadCenterName().trim());
+								loginInfoResource.setRadCenterStatus(""+radCenter.getPrivilegeCd());
+							}
+							loginResponse.setLoginInfoData(loginInfoResource);
 						}
 					} else {
+						// If radCenterId = -1 then it is PACS Admin else  radCenterId = 0 then PACS Accountant
+ 						 
 						isUserAuth = true;
 						headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
 						headerData.setResponseDataCount(1);
 						headerData.setSessionId(session.getId());
 						loginResponse.setHeaderData(headerData);
 						
+						loginInfoResource.setName(users.getName().trim());
 						loginInfoResource.setUserId(users.getUserId());
 						loginInfoResource.setEmailId(users.getEmailId().trim());
 						loginInfoResource.setRoleName(users.getRoles().getRoleName().trim());
 						loginInfoResource.setRoleId(users.getRoles().getRoleId());
-						loginInfoResource.setUserName(users.getName().trim());
+						loginInfoResource.setUserName(users.getUsername().trim());
 						loginInfoResource.setAddress(users.getAddress().trim());
-						if(radCenter != null) {
-							loginInfoResource.setRadCenterName(radCenter.getRadCenterName().trim());
-							loginInfoResource.setRadCenterStatus(""+radCenter.getPrivilegeCd());
-						}
-						loginResponse.setLoginInfoData(loginInfoResource);
+						loginInfoResource.setRadCenterId(radCenterId);
+						loginInfoResource.setRadCenterName(null);
+						loginInfoResource.setRadCenterStatus(null);
+ 						loginResponse.setLoginInfoData(loginInfoResource);
 					}
 						
 				} else {

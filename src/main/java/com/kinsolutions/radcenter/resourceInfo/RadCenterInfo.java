@@ -34,6 +34,10 @@ public class RadCenterInfo implements Serializable {
 	private String modifiedIpAddress;
 	private String fileName;
 	private String filePath;
+	private String serviceType;
+	private BigDecimal modalityCharge;
+	private String addressData;
+	
 	public Integer getRadCenterId() {
 		return radCenterId;
 	}
@@ -189,6 +193,24 @@ public class RadCenterInfo implements Serializable {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public String getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+	public BigDecimal getModalityCharge() {
+		return modalityCharge;
+	}
+	public String getAddressData() {
+		return addressData;
+	}
+	public void setModalityCharge(BigDecimal modalityCharge) {
+		this.modalityCharge = modalityCharge;
+	}
+	public void setAddressData(String addressData) {
+		this.addressData = addressData;
 	}
 
 	}

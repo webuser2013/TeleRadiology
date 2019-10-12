@@ -8,13 +8,16 @@ public class LoginInfoResource implements Serializable{
 	
 	private long userId;
 	private String userName;
+	private String name;
 	private long roleId;
 	private String roleName;
 	private String emailId;
 	private String password;
  	private String address;
+ 	private Integer radCenterId;
  	private String radCenterName;
  	private String radCenterStatus;
+ 	private String referenceName;
  	
 	public long getUserId() {
 		return userId;
@@ -72,6 +75,24 @@ public class LoginInfoResource implements Serializable{
 	}
 	public void setRadCenterStatus(String radCenterStatus) {
 		this.radCenterStatus = radCenterStatus;
+	}
+	public Integer getRadCenterId() {
+		return radCenterId;
+	}
+	public void setRadCenterId(Integer radCenterId) {
+		this.radCenterId = radCenterId;
+	}
+	public String getReferenceName() {
+		return referenceName;
+	}
+	public void setReferenceName(String referenceName) {
+		this.referenceName = referenceName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	 
 	

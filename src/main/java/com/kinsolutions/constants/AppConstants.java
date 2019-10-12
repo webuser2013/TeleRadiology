@@ -5,12 +5,13 @@ public class AppConstants {
 	public static final String ALG_PWD_HASH = "MD5";
 	
 	public static final String OJB_RADCENTER_TYPENAME = "RADCENTER";
+	public static final String OJB_SITES_TYPENAME = "SITES";
 	public static final String OJB_ACTION_CREATE = "CREATE";
 	public static final String OJB_ACTION_UPDATE = "UPDATE";
 	public static final String OJB_ACTION_DELETE = "DELETE";
 	public static final String OJB_ACTION_UPLOAD = "UPLOAD";
 	public static final String FILE_PO_EXT = "pdf";
-		
+	
 	public static final int PRIVILEGECD_STATUS_ACTIVE = 1;
 	public static final int PRIVILEGECD_STATUS_INACTIVE = 2;
 	public static final int PRIVILEGECD_STATUS_DELETED = 3;
@@ -28,6 +29,14 @@ public class AppConstants {
 	public static final int ERROR_RADCENTER_NOTFOUND = 308;
 	public static final int ERROR_RADCENTER_UPDPO = 309;
 	public static final int ERROR_RADCENTER_UPDPOSIZE = 310;
+	public static final int ERROR_RADCENTER_DUPLICATENAME = 311;
+	
+	//Sites Module Data
+	public static final int ERROR_SITE_INACTIVE = 311;	
+	public static final int ERROR_SITE_DELETED = 312;	
+	public static final int ERROR_SITE_SAVE = 313;
+	public static final int ERROR_SITE_READ = 314;
+	public static final int ERROR_SITE_NOTFOUND = 315;
 		
 	public static final int ERROR_DATA_NOTFOUND = 401;
 	public static final int ERROR_MNDDATA_NOT_FOUND = 402;

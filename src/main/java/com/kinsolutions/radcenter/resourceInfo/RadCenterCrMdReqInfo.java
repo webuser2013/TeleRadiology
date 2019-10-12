@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RadCenterCrMdReqInfo implements Serializable {
@@ -30,6 +28,10 @@ public class RadCenterCrMdReqInfo implements Serializable {
 	private String serverCoreCount;
 	private String serverStorage;
 	private BigDecimal serverMonthlyCharges;
+	//private	MultipartFile purchaseOrderFile;
+	private String serviceType;
+	private BigDecimal modalityCharge;
+	private String addressData;
 	
 	public Integer getRadCenterId() {
 		return radCenterId;
@@ -144,6 +146,30 @@ public class RadCenterCrMdReqInfo implements Serializable {
 	}
 	public void setServerMonthlyCharges(BigDecimal serverMonthlyCharges) {
 		this.serverMonthlyCharges = serverMonthlyCharges;
+	}
+	/*public MultipartFile getPurchaseOrderFile() {
+		return purchaseOrderFile;
+	}
+	public void setPurchaseOrderFile(MultipartFile purchaseOrderFile) {
+		this.purchaseOrderFile = purchaseOrderFile;
+	}*/
+	public String getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
+	public BigDecimal getModalityCharge() {
+		return modalityCharge;
+	}
+	public String getAddressData() {
+		return addressData;
+	}
+	public void setModalityCharge(BigDecimal modalityCharge) {
+		this.modalityCharge = modalityCharge;
+	}
+	public void setAddressData(String addressData) {
+		this.addressData = addressData;
 	}
 
 }

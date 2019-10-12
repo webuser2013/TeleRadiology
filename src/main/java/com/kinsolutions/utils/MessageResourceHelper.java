@@ -58,6 +58,38 @@ public class MessageResourceHelper {
 	
 	@Value("${msg.radcen.updpo}")
 	public String msgRadCenUpdPurchaseOrder;
+	
+	@Value("${msg.radcen.duplicatename}")
+	public String msgRadcenDuplicateName;
+	
+	//Sites messages
+	@Value("${msg.site.inactive}")
+	public String msgSiteInactive;
+	
+	@Value("${msg.site.deleted}")
+	public String msgSiteDeleted;
+	
+	@Value("${msg.site.create}")
+	public String msgSiteCreate;
+	
+	@Value("${msg.site.modify}")
+	public String msgSiteModify;
+	
+	@Value("${msg.site.saveerr}")
+	public String msgSiteSaveErr;
+	
+	@Value("${msg.site.activateerr}")
+	public String msgSiteActivateErr;
+	
+	@Value("${msg.site.deactivateerr}")
+	public String msgSiteDeactivateErr;
+		
+	@Value("${msg.site.deleteerr}")
+	public String msgSiteDeleteErr;
+	
+	@Value("${msg.site.readerr}")
+	public String msgSiteReadErr;	
+
 
 	public String getMsgDataNotFound() {
 		return msgDataNotFound;
@@ -193,6 +225,86 @@ public class MessageResourceHelper {
 
 	public void setMsgRadCenUpdPurchaseOrder(String msgRadCenUpdPurchaseOrder) {
 		this.msgRadCenUpdPurchaseOrder = msgRadCenUpdPurchaseOrder;
+	}
+
+	public String getMsgSiteInactive() {
+		return msgSiteInactive;
+	}
+
+	public void setMsgSiteInactive(String msgSiteInactive) {
+		this.msgSiteInactive = msgSiteInactive;
+	}
+
+	public String getMsgSiteDeleted() {
+		return msgSiteDeleted;
+	}
+
+	public void setMsgSiteDeleted(String msgSiteDeleted) {
+		this.msgSiteDeleted = msgSiteDeleted;
+	}
+
+	public String getMsgSiteCreate() {
+		return msgSiteCreate;
+	}
+
+	public void setMsgSiteCreate(String msgSiteCreate) {
+		this.msgSiteCreate = msgSiteCreate;
+	}
+
+	public String getMsgSiteModify() {
+		return msgSiteModify;
+	}
+
+	public void setMsgSiteModify(String msgSiteModify) {
+		this.msgSiteModify = msgSiteModify;
+	}
+
+	public String getMsgSiteSaveErr() {
+		return msgSiteSaveErr;
+	}
+
+	public void setMsgSiteSaveErr(String msgSiteSaveErr) {
+		this.msgSiteSaveErr = msgSiteSaveErr;
+	}
+
+	public String getMsgSiteActivateErr() {
+		return msgSiteActivateErr;
+	}
+
+	public void setMsgSiteActivateErr(String msgSiteActivateErr) {
+		this.msgSiteActivateErr = msgSiteActivateErr;
+	}
+
+	public String getMsgSiteDeactivateErr() {
+		return msgSiteDeactivateErr;
+	}
+
+	public void setMsgSiteDeactivateErr(String msgSiteDeactivateErr) {
+		this.msgSiteDeactivateErr = msgSiteDeactivateErr;
+	}
+
+	public String getMsgSiteDeleteErr() {
+		return msgSiteDeleteErr;
+	}
+
+	public void setMsgSiteDeleteErr(String msgSiteDeleteErr) {
+		this.msgSiteDeleteErr = msgSiteDeleteErr;
+	}
+
+	public String getMsgSiteReadErr() {
+		return msgSiteReadErr;
+	}
+
+	public void setMsgSiteReadErr(String msgSiteReadErr) {
+		this.msgSiteReadErr = msgSiteReadErr;
+	}
+
+	public String getMsgRadcenDuplicateName() {
+		return msgRadcenDuplicateName;
+	}
+
+	public void setMsgRadcenDuplicateName(String msgRadcenDuplicateName) {
+		this.msgRadcenDuplicateName = msgRadcenDuplicateName;
 	}
 
 	 

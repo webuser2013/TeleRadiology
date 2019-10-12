@@ -3,6 +3,7 @@ package com.kinsolutions.radcenter.service;
 import java.util.List;
 
 import com.kinsolutions.model.RadCenter;
+import com.kinsolutions.model.Sites;
 
 public interface RadCenterService {
 	
@@ -15,5 +16,7 @@ public interface RadCenterService {
 	public boolean isRadCenterExists(String radCenterName);
 	
 	public List<RadCenter> getAllRadCenter();
+	
+	public List<RadCenter> getRadCenterByRadcenterInfo(String radcenterName,String servicetype,int privilegeCd);
 
 }

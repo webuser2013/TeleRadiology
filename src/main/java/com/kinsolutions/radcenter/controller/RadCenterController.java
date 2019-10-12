@@ -61,25 +61,47 @@ public class RadCenterController {
 	
 	
 	@RequestMapping(value = "/saveOrUpdateRadCenter", method = RequestMethod.POST)
-	public ResponseEntity<RadCenterCrMdResInfo> saveOrUpdateRadCenter(@RequestBody RadCenterCrMdReqInfo radCenterCrMdReqInfo) {
+ 	public ResponseEntity<RadCenterCrMdResInfo> saveOrUpdateRadCenter(@RequestBody RadCenterCrMdReqInfo radCenterCrMdReqInfo) {
+		System.out.println("saveOrUpdateRadCenter>>>>>>>>>>>>>>>>>");
 		RadCenterCrMdResInfo radCenterResponseInfo = new RadCenterCrMdResInfo();
 		RadCenter radCenter = null;
 		ObjectInfo objectInfo = new ObjectInfo();
-		Users users = null;
- 		HeaderData headerData = new HeaderData();
+  		HeaderData headerData = new HeaderData();
 		boolean isNewMode = true;
 		try {
 			
 			if(radCenterCrMdReqInfo != null){
- 				if(radCenterCrMdReqInfo.getRadCenterId() != null && radCenterCrMdReqInfo.getRadCenterId() != null && new Integer(radCenterCrMdReqInfo.getRadCenterId()) > 0){
+				String radCenterName = radCenterCrMdReqInfo.getRadCenterName();
+				boolean isRadCenterExists = radCenterService.isRadCenterExists(radCenterName);
+				
+				if(radCenterCrMdReqInfo.getRadCenterId() != null && radCenterCrMdReqInfo.getRadCenterId() != null && new Integer(radCenterCrMdReqInfo.getRadCenterId()) > 0){
 					//Update Object
 					radCenter = radCenterService.getRadCenterByRadCenterId(new Integer(radCenterCrMdReqInfo.getRadCenterId()));
 					if(radCenter != null) {
-						radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
-						users = userService.getUserByUserId(radCenterCrMdReqInfo.getUserId());
-						if(users != null){						
-							radCenter.setUsers(users);
-						}	
+						
+						System.out.println("radCenterName>>>>>>>>"+radCenterName);
+						System.out.println("radCenter.getRadCenterName()>>>>>>>>"+radCenter.getRadCenterName());
+						System.out.println("isRadCenterExists>>>>>>>>"+isRadCenterExists);
+						if(radCenterName != null && radCenter.getRadCenterName() != null && !(radCenterName.equals(radCenter.getRadCenterName().trim())) && isRadCenterExists){
+							//Name already Exists
+							
+							headerData.setResponseCode(AppConstants.ERROR_RADCENTER_SAVE);
+		 					headerData.setResponseDataCount(0);
+		 					radCenterResponseInfo.setHeaderData(headerData);
+		 					
+		  					objectInfo.setObjectName(radCenterName);
+		  					objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+		 					radCenterResponseInfo.setObjectInfo(objectInfo);
+		 					
+							ErrorData errorData = new ErrorData();
+		 					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_DUPLICATENAME);
+		 					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenDuplicateName());
+		 					radCenterResponseInfo.setErrorData(errorData);
+		 					
+		 					return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
+						}
+						
+						radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());							
 						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 						radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 						radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
@@ -91,7 +113,7 @@ public class RadCenterController {
 						}
 						if(radCenterCrMdReqInfo.getModalityCount() != null){
 							radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
-						}
+						}						
 						radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 						radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 						radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -101,6 +123,9 @@ public class RadCenterController {
 						radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
 						radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
 						radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());
+						radCenter.setServiceType(radCenterCrMdReqInfo.getServiceType());
+						radCenter.setAddressData(radCenterCrMdReqInfo.getAddressData());
+						radCenter.setModalityCharge(radCenterCrMdReqInfo.getModalityCharge());
  						radCenter.setCreatedIpAddress("000.000");
 						radCenter.setModifiedIpAddress("000.000");
 						isNewMode = false;
@@ -108,13 +133,29 @@ public class RadCenterController {
 					
 				} else {
 					//Create Object
+					
+					if(isRadCenterExists){
+						//Name already Exists
+						
+						headerData.setResponseCode(AppConstants.ERROR_RADCENTER_SAVE);
+	 					headerData.setResponseDataCount(0);
+	 					radCenterResponseInfo.setHeaderData(headerData);
+	 					
+	  					objectInfo.setObjectName(radCenterName);
+	  					objectInfo.setObjectType(AppConstants.OJB_RADCENTER_TYPENAME);
+	 					radCenterResponseInfo.setObjectInfo(objectInfo);
+	 					
+						ErrorData errorData = new ErrorData();
+	 					errorData.setErrorCode(AppConstants.ERROR_RADCENTER_DUPLICATENAME);
+	 					errorData.setErrorMessage(messageResourceHelper.getMsgRadcenDuplicateName());
+	 					radCenterResponseInfo.setErrorData(errorData);
+	 					
+	 					return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
+					}
+					
 					radCenter = new RadCenter();
 					radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());
-					System.out.println("radCenterCrMdReqInfo.getRadCenterId()>>>>>>>>"+radCenterCrMdReqInfo.getUserId());
- 					users = userService.getUserByUserId(new Integer(radCenterCrMdReqInfo.getUserId()));
-					if(users != null){						
-						radCenter.setUsers(users);
-					}	
+					System.out.println("radCenterCrMdReqInfo.getRadCenterId()>>>>>>>>"+radCenterCrMdReqInfo.getUserId()); 					
 					radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 					radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
 					radCenter.setDeploymentFee(radCenterCrMdReqInfo.getDeploymentFee());
@@ -135,7 +176,10 @@ public class RadCenterController {
 					radCenter.setServerRam(radCenterCrMdReqInfo.getServerRam());
 					radCenter.setServerCoreCount(radCenterCrMdReqInfo.getServerCoreCount());
 					radCenter.setServerStorage(radCenterCrMdReqInfo.getServerStorage());
-					radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());					
+					radCenter.setServerMonthlyCharges(radCenterCrMdReqInfo.getServerMonthlyCharges());		
+					radCenter.setServiceType(radCenterCrMdReqInfo.getServiceType());
+					radCenter.setAddressData(radCenterCrMdReqInfo.getAddressData());
+					radCenter.setModalityCharge(radCenterCrMdReqInfo.getModalityCharge());
 					radCenter.setCreatedIpAddress("000.000");
 					radCenter.setModifiedIpAddress("000.000");
 									
@@ -165,6 +209,9 @@ public class RadCenterController {
  					
  				}
  				System.out.println("radCenter Created or Updated............");
+ 				
+				
+ 				
  				
 			}
  			
@@ -386,10 +433,7 @@ public class RadCenterController {
  					 
  					radCenterInfo.setRadCenterId(radCenter.getRadCenterId());
  					radCenterInfo.setRadCenterName(radCenter.getRadCenterName());
- 					if(radCenter.getUsers() != null){						
- 						radCenterInfo.setUserId(radCenter.getUsers().getUserId());
- 						radCenterInfo.setUsername(radCenter.getUsers().getName());
-					}	
+ 					
  					radCenterInfo.setPrivilegeCd(radCenter.getPrivilegeCd());
  					radCenterInfo.setSecurityDeposit(radCenter.getSecurityDeposit());
  					radCenterInfo.setDeploymentFee(radCenter.getDeploymentFee());
@@ -405,8 +449,11 @@ public class RadCenterController {
 					radCenterInfo.setServerCoreCount(radCenter.getServerCoreCount());
 					radCenterInfo.setServerStorage(radCenter.getServerStorage());
 					radCenterInfo.setServerMonthlyCharges(radCenter.getServerMonthlyCharges());
-					radCenterInfo.setFileName("tests.png");
-					radCenterInfo.setFilePath("/apps/test/");
+					radCenterInfo.setServiceType(radCenter.getServiceType());
+					radCenterInfo.setAddressData(radCenter.getAddressData());
+					radCenterInfo.setModalityCharge(radCenter.getModalityCharge());
+					radCenterInfo.setFileName(radCenter.getFileName());
+					radCenterInfo.setFilePath(radCenter.getFilePath());
 					radCenterInfo.setCreatedIpAddress("000.000");
 					radCenterInfo.setModifiedIpAddress("000.000");
  					
@@ -502,10 +549,7 @@ public class RadCenterController {
 					
 					radCenterInfo.setRadCenterId(radCenter.getRadCenterId());
 					radCenterInfo.setRadCenterName(radCenter.getRadCenterName());
-					if(radCenter.getUsers() != null){						
-						radCenterInfo.setUserId(radCenter.getUsers().getUserId());
-						radCenterInfo.setUsername(radCenter.getUsers().getName());
-					}	
+					
 					radCenterInfo.setPrivilegeCd(radCenter.getPrivilegeCd());
 					radCenterInfo.setSecurityDeposit(radCenter.getSecurityDeposit());
 					radCenterInfo.setDeploymentFee(radCenter.getDeploymentFee());
@@ -521,8 +565,11 @@ public class RadCenterController {
 					radCenterInfo.setServerCoreCount(radCenter.getServerCoreCount());
 					radCenterInfo.setServerStorage(radCenter.getServerStorage());
 					radCenterInfo.setServerMonthlyCharges(radCenter.getServerMonthlyCharges());
-					radCenterInfo.setFileName("tests.png");
-					radCenterInfo.setFilePath("/apps/test/");
+					radCenterInfo.setServiceType(radCenter.getServiceType());
+					radCenterInfo.setAddressData(radCenter.getAddressData());
+					radCenterInfo.setModalityCharge(radCenter.getModalityCharge());
+					radCenterInfo.setFileName(radCenter.getFileName());
+					radCenterInfo.setFilePath(radCenter.getFilePath());
 					radCenterInfo.setCreatedIpAddress("000.000");
 					radCenterInfo.setModifiedIpAddress("000.000");
 					radCenterInfoList.add(radCenterInfo);
@@ -539,6 +586,64 @@ public class RadCenterController {
 		}
 		
 		return new ResponseEntity<RadCenterListResInfo>(radCenterListResInfoObj, HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value = "/getRadCenterByRadInfo/radcenterName/{radcenterName}/serviceType/{serviceType}/privilegeCd/{privilegeCd}", method = RequestMethod.GET)
+	public ResponseEntity<RadCenterListResInfo> getRadCenterByRadInfo(@PathVariable String radcenterName,@PathVariable String serviceType,@PathVariable int privilegeCd) {
+		RadCenterListResInfo radCenterListResInfo = new RadCenterListResInfo();
+		RadCenterInfo radCenterInfo = null;
+		List<RadCenterInfo> radCenterInfoList = new ArrayList<RadCenterInfo>();
+		HeaderData headerData = new HeaderData();
+		
+		try {
+			List<RadCenter> radCenterList = radCenterService.getRadCenterByRadcenterInfo(radcenterName, serviceType, privilegeCd);
+			
+			if(radCenterList != null && radCenterList.size() > 0){
+ 				headerData.setResponseCode(AppConstants.SUCCESS_RESONSE_CODE);
+				headerData.setResponseDataCount(radCenterList.size());
+				radCenterListResInfo.setHeaderData(headerData);
+				
+				for (RadCenter radCenter : radCenterList) {
+					radCenterInfo =  new RadCenterInfo();
+					radCenterInfo.setRadCenterId(radCenter.getRadCenterId());
+					radCenterInfo.setRadCenterName(radCenter.getRadCenterName());
+					
+					radCenterInfo.setPrivilegeCd(radCenter.getPrivilegeCd());
+					radCenterInfo.setSecurityDeposit(radCenter.getSecurityDeposit());
+					radCenterInfo.setDeploymentFee(radCenter.getDeploymentFee());
+					radCenterInfo.setSiteCount(radCenter.getSiteCount());
+					radCenterInfo.setRadiologistCount(radCenter.getRadiologistCount());
+					radCenterInfo.setModalityCount(radCenter.getModalityCount());
+					radCenterInfo.setModeOfCharge(radCenter.getModeOfCharge());
+					radCenterInfo.setCtcharge(radCenter.getCtcharge());
+					radCenterInfo.setMriCharge(radCenter.getMriCharge());
+					radCenterInfo.setxRayCrCharge(radCenter.getxRayCrCharge());
+					radCenterInfo.setMammogramCharge(radCenter.getMammogramCharge());
+					radCenterInfo.setServerRam(radCenter.getServerRam());
+					radCenterInfo.setServerCoreCount(radCenter.getServerCoreCount());
+					radCenterInfo.setServerStorage(radCenter.getServerStorage());
+					radCenterInfo.setServerMonthlyCharges(radCenter.getServerMonthlyCharges());
+					radCenterInfo.setServiceType(radCenter.getServiceType());
+					radCenterInfo.setFileName(radCenter.getFileName());
+					radCenterInfo.setFilePath(radCenter.getFilePath());
+					radCenterInfo.setAddressData(radCenter.getAddressData());
+					radCenterInfo.setModalityCharge(radCenter.getModalityCharge());
+					 
+					radCenterInfoList.add(radCenterInfo);
+				}
+				radCenterListResInfo.setRadCenterInfoList(radCenterInfoList);
+			} else{
+				ErrorData errorData = new ErrorData();
+				errorData.setErrorCode(AppConstants.ERROR_SITE_NOTFOUND);
+				errorData.setErrorMessage(messageResourceHelper.getMsgDataNotFound());
+				radCenterListResInfo.setErrorData(errorData);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<RadCenterListResInfo>(radCenterListResInfo, HttpStatus.OK);
 		
 	}
 }

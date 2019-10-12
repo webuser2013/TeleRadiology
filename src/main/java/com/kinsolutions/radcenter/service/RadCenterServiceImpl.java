@@ -51,4 +51,9 @@ public class RadCenterServiceImpl implements RadCenterService {
 		return radCenterDao.getAllRadCenter();
 	}
 
+	@Override
+	public List<RadCenter> getRadCenterByRadcenterInfo(String radcenterName, String servicetype, int privilegeCd) { 
+		return radCenterDao.getRadCenterByRadcenterInfo(radcenterName,servicetype,privilegeCd);
+	}
+
 }

@@ -13,8 +13,8 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDao loginDao;
 
 	@Override
-	public Users authenticateUser(String emailId, String password) { 
-		return loginDao.authenticateUser(emailId,password);
+	public Users authenticateUser(String referenceName, String password) { 
+		return loginDao.authenticateUser(referenceName,password);
 	}
 
 }
