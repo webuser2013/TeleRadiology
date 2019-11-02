@@ -100,7 +100,7 @@ public class RadCenterController {
 		 					
 		 					return new ResponseEntity<RadCenterCrMdResInfo>(radCenterResponseInfo, HttpStatus.OK);
 						}
-						
+						radCenter.setRadCenterDate(radCenterCrMdReqInfo.getRadCenterDate());
 						radCenter.setRadCenterName(radCenterCrMdReqInfo.getRadCenterName());							
 						radCenter.setPrivilegeCd(AppConstants.PRIVILEGECD_STATUS_ACTIVE);
 						radCenter.setSecurityDeposit(radCenterCrMdReqInfo.getSecurityDeposit());
@@ -168,6 +168,7 @@ public class RadCenterController {
 					if(radCenterCrMdReqInfo.getModalityCount() != null){
 						radCenter.setModalityCount(new Integer(radCenterCrMdReqInfo.getModalityCount()));
 					}
+					radCenter.setRadCenterDate(radCenterCrMdReqInfo.getRadCenterDate());
 					radCenter.setModeOfCharge(radCenterCrMdReqInfo.getModeOfCharge());
 					radCenter.setCtcharge(radCenterCrMdReqInfo.getCtcharge());
 					radCenter.setMriCharge(radCenterCrMdReqInfo.getMriCharge());
@@ -456,6 +457,7 @@ public class RadCenterController {
 					radCenterInfo.setFilePath(radCenter.getFilePath());
 					radCenterInfo.setCreatedIpAddress("000.000");
 					radCenterInfo.setModifiedIpAddress("000.000");
+					radCenterInfo.setRadCenterDate(radCenter.getRadCenterDate());
  					
   					radCenterResInfo.setRadCenterInfo(radCenterInfo);
 				}  else {
@@ -572,6 +574,7 @@ public class RadCenterController {
 					radCenterInfo.setFilePath(radCenter.getFilePath());
 					radCenterInfo.setCreatedIpAddress("000.000");
 					radCenterInfo.setModifiedIpAddress("000.000");
+					radCenterInfo.setRadCenterDate(radCenter.getRadCenterDate());
 					radCenterInfoList.add(radCenterInfo);
 				}
 				radCenterListResInfoObj.setRadCenterInfoList(radCenterInfoList);
@@ -629,7 +632,8 @@ public class RadCenterController {
 					radCenterInfo.setFilePath(radCenter.getFilePath());
 					radCenterInfo.setAddressData(radCenter.getAddressData());
 					radCenterInfo.setModalityCharge(radCenter.getModalityCharge());
-					 
+					radCenterInfo.setRadCenterDate(radCenter.getRadCenterDate());
+					
 					radCenterInfoList.add(radCenterInfo);
 				}
 				radCenterListResInfo.setRadCenterInfoList(radCenterInfoList);

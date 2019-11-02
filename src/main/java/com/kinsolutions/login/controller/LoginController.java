@@ -3,8 +3,12 @@ package com.kinsolutions.login.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +27,7 @@ import com.kinsolutions.utils.MessageResourceHelper;
 import com.kinsolutions.utils.PasswordHashing;
 
 @RestController
+@ControllerAdvice
 @RequestMapping("/login")
 public class LoginController {
 	
@@ -34,6 +39,12 @@ public class LoginController {
  		
 	@Autowired
 	private MessageResourceHelper messageResourceHelper;
+	
+	 @InitBinder
+	 public void initBinder ( WebDataBinder binder ) {
+        StringTrimmerEditor stringtrimmer = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, stringtrimmer);
+	 }
 	
  	@RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
 	public ResponseEntity<LoginResponse> authenticateUserLogin(@RequestBody LoginInfoResource loginInfoResource,HttpSession session) {
@@ -81,16 +92,16 @@ public class LoginController {
 							headerData.setSessionId(session.getId());
 							loginResponse.setHeaderData(headerData);
 							
-							loginInfoResource.setName(users.getName().trim());
+							loginInfoResource.setName(users.getName());
 							loginInfoResource.setUserName(users.getUsername());
 							loginInfoResource.setEmailId(users.getEmailId());
 							loginInfoResource.setUserId(users.getUserId());
-							loginInfoResource.setEmailId(users.getEmailId().trim());
-							loginInfoResource.setRoleName(users.getRoles().getRoleName().trim());
+							loginInfoResource.setEmailId(users.getEmailId());
+							loginInfoResource.setRoleName(users.getRoles().getRoleName());
 							loginInfoResource.setRoleId(users.getRoles().getRoleId());
- 							loginInfoResource.setAddress(users.getAddress().trim());
+ 							loginInfoResource.setAddress(users.getAddress());
 							if(radCenter != null) {
-								loginInfoResource.setRadCenterName(radCenter.getRadCenterName().trim());
+								loginInfoResource.setRadCenterName(radCenter.getRadCenterName());
 								loginInfoResource.setRadCenterStatus(""+radCenter.getPrivilegeCd());
 							}
 							loginResponse.setLoginInfoData(loginInfoResource);
@@ -104,13 +115,13 @@ public class LoginController {
 						headerData.setSessionId(session.getId());
 						loginResponse.setHeaderData(headerData);
 						
-						loginInfoResource.setName(users.getName().trim());
+						loginInfoResource.setName(users.getName());
 						loginInfoResource.setUserId(users.getUserId());
-						loginInfoResource.setEmailId(users.getEmailId().trim());
-						loginInfoResource.setRoleName(users.getRoles().getRoleName().trim());
+						loginInfoResource.setEmailId(users.getEmailId());
+						loginInfoResource.setRoleName(users.getRoles().getRoleName());
 						loginInfoResource.setRoleId(users.getRoles().getRoleId());
-						loginInfoResource.setUserName(users.getUsername().trim());
-						loginInfoResource.setAddress(users.getAddress().trim());
+						loginInfoResource.setUserName(users.getUsername());
+						loginInfoResource.setAddress(users.getAddress());
 						loginInfoResource.setRadCenterId(radCenterId);
 						loginInfoResource.setRadCenterName(null);
 						loginInfoResource.setRadCenterStatus(null);

@@ -28,6 +28,26 @@ function postRequest(){
     });
 }
 
+function postFileRequest(){
+	var requestUrl = $("#updFilePostUrlId").val();
+   	var methodType = $("#methodTypeId").val();
+    alert("requestUrl: "+requestUrl+" \n " + " MethodType: "+methodType);
+    var form = $("#fileUploadForm")[0];
+    var data = new FormData(form);
+    $.ajax({
+        type : "POST",
+        encType : "multipart/form-data",
+        url : requestUrl,
+        cache : false,
+        processData : false,
+        contentType : false,
+        data : data,
+        success : function(responseMsg) {
+        	alert("Response Message from server: "+JSON.stringify({responseMsg}));
+        }
+    });
+}
+
 </script>
 </head>
 <body>
@@ -59,11 +79,30 @@ function postRequest(){
 	</tr>
 
 </table>
-
-
-
-
-
 </form>
+
+<form enctype="multipart/form-data" id="fileUploadForm">
+
+<table>
+	<tr>
+		<td> URL </td>
+		<td> <input type="text"  id="updFilePostUrlId" size="75"></input> </td> 
+	</tr>
+	
+	<tr>
+		<td> Upload File </td>
+		<td> <input type="file" name="file"/></td> 
+	</tr>
+
+	<tr>
+		<td> </td>
+		<td><input type="button" value="Submit" id="fileUploadId" onclick="postFileRequest()" /></td> 
+	</tr>
+
+</table>    
+    
+    
+</form>
+
 </body>
 </html>

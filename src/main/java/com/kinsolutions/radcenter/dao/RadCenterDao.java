@@ -96,17 +96,20 @@ public class RadCenterDao {
 		try {
  			StringBuffer hqlQuery = new StringBuffer();
 			hqlQuery.append("FROM RadCenter ");
-			if(radcenterName != null || servicetype != null || privilegeCd > 0) {
+			System.out.println("radcenterName>>>>>>>>"+radcenterName);
+			System.out.println("servicetype>>>>>>>>"+servicetype);
+			System.out.println("privilegeCd>>>>>>>>"+privilegeCd);
+			if( (radcenterName != null && (!"null".equalsIgnoreCase(radcenterName)) ) || (servicetype != null && (!"null".equalsIgnoreCase(servicetype))) || privilegeCd > 0) {
 				hqlQuery.append(" WHERE ");
 				
 				int i = 0;
-				if(radcenterName != null){
+				if(radcenterName != null && !"null".equalsIgnoreCase(radcenterName)){
 					hqlQuery.append("radCenterName = ? ");
 					i++;
 					paramMap.put("radCenterName",i);
 				}
 				
-				if(servicetype != null){
+				if(servicetype != null && !"null".equalsIgnoreCase(servicetype)){
 					if( i > 0) {
 						hqlQuery.append(" AND serviceType = ? ");						
 					} else {						
@@ -128,8 +131,9 @@ public class RadCenterDao {
 				
 			}
 			hqlQuery.append(" ORDER BY radCenterName ");
+			System.out.println("hqlQuery.toString()>>>>>>"+hqlQuery.toString());
 			
-			Query hqlQueryObj = entityManager.createQuery(hqlQuery.toString(), Sites.class);
+			Query hqlQueryObj = entityManager.createQuery(hqlQuery.toString(), RadCenter.class);
 			if(paramMap != null && paramMap.size() > 0){
 				if(paramMap.containsKey("radCenterName")){
 					hqlQueryObj.setParameter(paramMap.get("radCenterName"), radcenterName);

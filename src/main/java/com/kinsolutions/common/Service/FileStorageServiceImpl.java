@@ -15,10 +15,11 @@ public class FileStorageServiceImpl implements FileStorageService {
 		FileOutputStream fileOutputStream = null;
 		File uploadedFile = null;
         try {
-        	 if(new File(path).isDirectory() && !new File(path).exists()) {        		 
+          	 if(!new File(path).exists()) {        		 
         		 new File(path).mkdirs();
-        	 } else {
+         	 } else {
         		 new File(path).delete();
+        		 new File(path).mkdirs();
         	 }
         	 uploadedFile = new File(path, file.getOriginalFilename());
         	 uploadedFile.createNewFile();
